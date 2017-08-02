@@ -13,7 +13,7 @@
 #include "solver_PCG.h"
 #include "outucd.h"
 
-int 
+int
 main()
 {
 	double *WK;

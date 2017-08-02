@@ -13,8 +13,7 @@
 #include "solver_PCG.h"
 #include "outucd.h"
 
-int 
-main()
+int main()
 {
 	double *WK;
 	int NPL, NPU;
