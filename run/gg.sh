@@ -8,7 +8,7 @@
 #PBS -e test16.err
 #PBS -o test16.lst
 
-cd $PBS_O_WORKDIR
+#cd $PBS_O_WORKDIR
 . /etc/profile.d/modules.sh
 
 export OMP_NUM_THREADS=16
