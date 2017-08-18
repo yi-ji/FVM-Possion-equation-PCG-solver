@@ -64,7 +64,7 @@ solve_PCG (int N, int NL, int NU, int **IALU, double **A, double *D, double *B, 
         }
 
         BNRM2 = 0.0;
-#pragma omp parallel for private (i) reduction (+:BNRM2)
+#pragma omp parallel for simd reduction (+:BNRM2)
         for(i=0; i<N; i++) {
           BNRM2 += B[i]*B[i];
         }
@@ -92,7 +92,7 @@ solve_PCG (int N, int NL, int NU, int **IALU, double **A, double *D, double *B, 
  *  * RHO = {r}{z} *
  *   ****************/
                 RHO = 0.0;
-#pragma omp parallel for private (i) reduction(+:RHO)
+#pragma omp parallel for simd reduction(+:RHO)
                 for(i=0; i<N; i++) {
                   RHO += W[R][i] * W[Z][i];
                 }
@@ -123,6 +123,7 @@ solve_PCG (int N, int NL, int NU, int **IALU, double **A, double *D, double *B, 
 #pragma omp parallel for simd private (i,j,k)
             for (i=0; i<N; i+=8){
                 for (j=0; j<7; j++){
+                    #pragma omp simd aligned(W,A:16) safelen(4)
                     for (k=i; k<i+8; k++){
                         W[Q][k] += A[k][j] * W[P][IALU[k][j]-1];
                     }
